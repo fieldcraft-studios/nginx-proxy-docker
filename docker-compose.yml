@@ -7,7 +7,7 @@ services:
     container_name: nginx
     restart: unless-stopped
     ports:
-      - "80:80"
+      - "85:80"
       - "443:443"
     volumes:
       - ${VOLUME_HOME}/nginx-proxy/conf.d:/etc/nginx/conf.d
