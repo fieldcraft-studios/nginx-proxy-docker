@@ -10,10 +10,10 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - /share/CACHEDEV2_DATA/home/nginx-proxy/conf.d:/etc/nginx/conf.d
-      - /share/CACHEDEV2_DATA/home/nginx-proxy/vhost.d:/etc/nginx/vhost.d
-      - /share/CACHEDEV2_DATA/home/nginx-proxy/html:/usr/share/nginx/html
-      - /share/CACHEDEV2_DATA/home/nginx-proxy/certs:/etc/nginx/certs:ro
+      - ${VOLUME_HOME}/nginx-proxy/conf.d:/etc/nginx/conf.d
+      - ${VOLUME_HOME}/nginx-proxy/vhost.d:/etc/nginx/vhost.d
+      - ${VOLUME_HOME}/nginx-proxy/html:/usr/share/nginx/html
+      - ${VOLUME_HOME}/nginx-proxy/certs:/etc/nginx/certs:ro
 
   nginx-gen:
     image: jwilder/docker-gen
@@ -21,22 +21,22 @@ services:
     container_name: nginx-gen
     restart: unless-stopped
     volumes:
-      - /share/CACHEDEV2_DATA/home/nginx-proxy/conf.d:/etc/nginx/conf.d
-      - /share/CACHEDEV2_DATA/home/nginx-proxy/vhost.d:/etc/nginx/vhost.d
-      - /share/CACHEDEV2_DATA/home/nginx-proxy/html:/usr/share/nginx/html
-      - /share/CACHEDEV2_DATA/home/nginx-proxy/certs:/etc/nginx/certs:ro
+      - ${VOLUME_HOME}/nginx-proxy/conf.d:/etc/nginx/conf.d
+      - ${VOLUME_HOME}/nginx-proxy/vhost.d:/etc/nginx/vhost.d
+      - ${VOLUME_HOME}/nginx-proxy/html:/usr/share/nginx/html
+      - ${VOLUME_HOME}/nginx-proxy/certs:/etc/nginx/certs:ro
       - /var/run/docker.sock:/tmp/docker.sock:ro
-      - /share/CACHEDEV2_DATA/home/nginx-proxy/nginx.tmpl:/etc/docker-gen/templates/nginx.tmpl:ro
+      - ${VOLUME_HOME}/nginx-proxy/nginx.tmpl:/etc/docker-gen/templates/nginx.tmpl:ro
 
   nginx-letsencrypt:
     image: jrcs/letsencrypt-nginx-proxy-companion
     container_name: nginx-letsencrypt
     restart: unless-stopped
     volumes:
-      - /share/CACHEDEV2_DATA/home/nginx-proxy/conf.d:/etc/nginx/conf.d
-      - /share/CACHEDEV2_DATA/home/nginx-proxy/vhost.d:/etc/nginx/vhost.d
-      - /share/CACHEDEV2_DATA/home/nginx-proxy/html:/usr/share/nginx/html
-      - /share/CACHEDEV2_DATA/home/nginx-proxy/certs:/etc/nginx/certs:rw
+      - ${VOLUME_HOME}/nginx-proxy/conf.d:/etc/nginx/conf.d
+      - ${VOLUME_HOME}/nginx-proxy/vhost.d:/etc/nginx/vhost.d
+      - ${VOLUME_HOME}/nginx-proxy/html:/usr/share/nginx/html
+      - ${VOLUME_HOME}/nginx-proxy/certs:/etc/nginx/certs:rw
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
       NGINX_DOCKER_GEN_CONTAINER: "nginx-gen"
